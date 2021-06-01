@@ -1,46 +1,20 @@
-<html>
-    <head>
-    
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  background-color: #E8DCD9;
-  font-family: cursive;
-}
-
-.blue{
-	color:#187bcd
-}
-
-.glow {
-  font-size: 30px;
-  color: blue;
-  text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
-@-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-  
-  to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-  }
-}
-</style>
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='style.css') }}" type="text/css" rel="stylesheet">
 
         {% if title %}
         <title>{{ title }} - TriPlanned</title>
         {% else %}
         <title>Starfinder</title>
         {% endif %}
-    </head>
-    <body>
+  </head>
+  <body>
            <div>
-      <center><h3 class="glow">Starfinder Project</h3><center>
+      <center><h1 class="glow">Starfinder Project</h1><center>
       <a class="blue pull-left" href="{{ url_for('index') }}">Home</a>
       {% if current_user.is_anonymous %}
       <a class="blue pull-right" href="{{ url_for('login') }}">Login</a>
