@@ -1,46 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<head><style>
-body {
-  background-color: #E8DCD9;
-  font-family: cursive;
-}</style></head>
 
-<center><h1 style="color:red">Welcome back {{current_user.username}}!</h1>
-  <h2>Characters: 
-{% for character in characters %}
-<ul>&#128205;{{ character.name }} - {{ character.strain }}</ul>
-{% endfor %}
+
+<center>
+    <h1 style="color:red">Welcome back {{current_user.username}}!</h1>
+    <h2>Characters: 
+        {% for character in characters %}
+        <ul><a class="blue" href="{{  url_for('character_selection', username=current_user.username, charactername=character.name) }}">&#128205</a> {{ character.name }} - {{ character.strain }}</ul>
+        {% endfor %}
     </h2>
-    <h1 class="blue">Create new character:</h1>
-
-  
-
-    <form method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.name.label }}<br>
-            {{ form.name(size=32) }}<br>
-            {% for error in form.name.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.strain.label }}<br>
-            {{ form.strain(size=64) }}<br>
-            {% for error in form.strain.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.class1.label }}<br>
-            {{ form.class1(size=32) }}<br>
-            {% for error in form.class1.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form></center>
+    <h1><a class="blue" href="{{  url_for('character_creation', username=current_user.username) }}">Create new character</a></h1>
+</center>
 
 {% endblock %}

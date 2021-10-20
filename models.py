@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from app import db, login
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy import PickleType
+import pickle
 
 
 class User(UserMixin, db.Model):
@@ -25,9 +26,11 @@ class User(UserMixin, db.Model):
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
-    strain = db.Column(db.String(20))
     gender = db.Column(db.String(10))
-    backgrounf = db.Column(db.String(20))
+    alignement = db.Column(db.String(2))
+    deity = db.Column(db.String(20))
+    strain = db.Column(db.String(20))
+    background = db.Column(db.String(20))
     class1 = db.Column(db.String(20))
     level1 = db.Column(db.Integer)
     class2 = db.Column(db.String(20))
@@ -36,5 +39,22 @@ class Character(db.Model):
     player = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Post {}>'.format(self.description)
+        return '<PC: {}>'.format(self.name)
+
+class Pclass(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(40))
+    hp = db.Column(db.Integer)
+    sp = db.Column(db.Integer)
+    key_ability = db.Column(db.Integer)
+    gbab = db.Column(db.Boolean)
+    gfort = db.Column(db.Boolean)
+    gref = db.Column(db.Boolean)
+    gwill = db.Column(db.Boolean)
+    armor_prof = db.Column(MutableList.as_mutable(PickleType))
+    wp_prof = db.Column(MutableList.as_mutable(PickleType))
+    c_skills = db.Column(MutableList.as_mutable(PickleType))
+
+
+
 

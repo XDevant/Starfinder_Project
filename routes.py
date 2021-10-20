@@ -4,7 +4,16 @@ from forms import RegistrationForm,LoginForm, CharacterForm
 from werkzeug.urls import url_parse
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from app import app, db
-  
+
+
+@app.route('/')
+def index():
+  characters = Character.query.all()
+  if not characters:
+    characters=[]
+  return render_template('landing_page.html',characters=characters)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   #check if current_user logged in, if so redirect to a page that makes sense
@@ -23,10 +32,12 @@ def login():
     return redirect(next_page)
   return render_template('login.html', title='Sign In', form=form)
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -43,28 +54,35 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+
 @app.route('/user/<username>',methods=['GET', 'POST'])
 @login_required
 def user(username):
-	user = current_user
-	user = User.query.filter_by(username=user.username).first()
+	user = User.query.filter_by(username=current_user.username).first()
 	characters = Character.query.filter_by(player=user.id)
 	if characters is None:
 		characters = []
-	form = CharacterForm()
-	if request.method == 'POST' and form.validate():
-		new_character = Character(name = form.name.data, strain=form.strain.data, class1=form.class1.data, player=current_user.id)
-		db.session.add(new_character)
-		db.session.commit()
-	else:
-		flash(form.errors)
-	characters = Character.query.all()
-	return render_template('user.html', user=user, characters=characters, form=form)
+	return render_template('user.html', user=user, characters=characters)
 
-@app.route('/')
-def index():
-  characters = Character.query.all()
-  if not characters:
-    characters=[]
-  return render_template('landing_page.html',characters=characters)
+
+@app.route('/user/<username>/character_creation',methods=['GET', 'POST'])
+@login_required
+def character_creation(username):
+  user = User.query.filter_by(username=current_user.username).first()
+  form = CharacterForm()
+  if request.method == 'POST' and form.validate():
+    new_character = Character(name = form.name.data, strain=form.strain.data, class1=form.class1.data, player=current_user.id)
+    db.session.add(new_character)
+    db.session.commit()
+  else:
+    flash(form.errors)
+  return render_template('character_creation.html', user=user, form=form)
+
+
+@app.route('/user/<username>/<charactername>',methods=['GET', 'POST'])
+@login_required
+def character_selection(username,charactername):
+  user = User.query.filter_by(username=current_user.username).first()
+  character = Character.query.filter_by(name=charactername).first()
+  return render_template('character_selection.html', user=user, charactername=character)
 
