@@ -1,0 +1,85 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #E8DCD9;
+  font-family: cursive, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header, 
+.mainwrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+
+.mainwrapper {
+  justify-content: space-around;
+  min-height: 85vh;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  justify-content: space-around;
+}
+
+footer {
+  width: 100%;
+}
+
+footer h {
+  text-align: right;
+}
+
+.characters {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.characters h2{
+  padding: 10px 20px;
+}
+
+.characters ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.blue{
+  color:#187bcd
+}
+
+.glowing {
+  font-size: 30px;
+  color: blue;
+  text-align: center;
+  animation: 1s ease-in-out 0s infinite alternate  glowing;
+
+}
+
+@keyframes glowing {
+  from {
+    text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px blue, 0 0 40px blue, 0 0 50px blue, 0 0 60px blue, 0 0 70px lightblue;
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px blueviolet, 0 0 40px blueviolet, 0 0 50px blueviolet, 0 0 60px blueviolet, 0 0 70px blueviolet, 0 0 80px blueviolet;
+  }
+}
