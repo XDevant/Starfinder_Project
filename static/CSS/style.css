@@ -83,3 +83,11 @@ footer h {
     text-shadow: 0 0 20px #fff, 0 0 30px blueviolet, 0 0 40px blueviolet, 0 0 50px blueviolet, 0 0 60px blueviolet, 0 0 70px blueviolet, 0 0 80px blueviolet;
   }
 }
+
+#landingpage {
+  background-image: url("../images/pillarsofcreation.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw 90vh;
+  text-shadow: 1px 1px black;
+  color: #fff;
+}
